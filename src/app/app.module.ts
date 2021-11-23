@@ -9,11 +9,15 @@ import { routing } from './app.routing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ButtonModule } from 'primeng/button';
+import { MenuSidebarComponent } from './pages/components/menu-sidebar/menu-sidebar.component';
+import { AddProductComponent } from './pages/add-product/add-product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    MenuSidebarComponent,
+    AddProductComponent,
   ],
   imports: [
     BrowserModule,
