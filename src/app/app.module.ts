@@ -18,6 +18,9 @@ import { PipeNumeberKilogram } from './pages/pipes/pipe-number-kilogram.pipe ';
 import { PipeNumeberUnity } from './pages/pipes/pipe-number-unity.pipe ';
 import { PipeDate } from './pages/pipes/pipe-date.pipe ';
 
+import { MenuSidebarComponent } from './pages/components/menu-sidebar/menu-sidebar.component';
+import { AddProductComponent } from './pages/add-product/add-product.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +31,9 @@ import { PipeDate } from './pages/pipes/pipe-date.pipe ';
     PipeNumeberLiter,
     PipeNumeberKilogram,
     PipeNumeberUnity,
-    PipeDate
+    PipeDate,
+    MenuSidebarComponent,
+    AddProductComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,41 @@
+#menu-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  box-shadow: 0 0 26px 0 rgba(0,0,0,0.6);
+  -webkit-box-shadow: 0 0 26px 0 rgba(0,0,0,0.6);
+  -moz-box-shadow: 0 0 26px 0 rgba(0,0,0,0.6);
+  .menu-sidebar-brand {
+    text-align: center;
+    padding: 20px 0;
+    img {
+      height: 30px;
+    }
+  }
+  .menu-sidebar-list {
+    ul {
+      margin: 0;
+      padding: 0 15px;
+      list-style: none;
+      li {
+        margin-bottom: 2px;
+        a {
+          display: block;
+          padding: 10px;
+          color: #212529;
+          text-decoration: none;
+          i {
+            padding-right: 10px;
+          }
+          &.active {
+            border-radius: 5px;
+            color: #ffffff;
+            background: linear-gradient(135deg, #00c89b 0%, #00958b 100%);
+          }
+        }
+      }
+    }
+  }
+}
