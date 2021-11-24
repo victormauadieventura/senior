@@ -1,0 +1,31 @@
+<div class="table">
+  <div class="table-header">
+    <ng-container *ngFor="let column of columns">
+      {{ column.header }}
+    </ng-container>
+  </div>
+  <div class="table-body">
+    <ng-container *ngFor="let item of data">
+      <div class="table-body-items">
+        <ng-container *ngFor="let column of columns">
+          <span *ngIf="column.dataType === 'text'">{{ item[column.field] }}</span>
+          <span *ngIf="column.dataType === 'currency'">{{ item[column.field] | currency }}</span>
+          <span *ngIf="column.dataType === 'number'">{{ item[column.field] | number }}</span>
+          <span *ngIf="column.dataType === 'measurement'">
+            <ng-container *ngIf="item.measurement === 'Litro'">
+              {{ item[column.field] | numberLiter }}
+            </ng-container>
+            <ng-container *ngIf="item.measurement === 'Quilograma'">
+              {{ item[column.field] | numberKilogram }}
+            </ng-container>
+            <ng-container *ngIf="item.measurement === 'Unidade'">
+              {{ item[column.field] | numberUnity }}
+            </ng-container>
+          </span>
+          <span *ngIf="column.dataType === 'boolean'">{{ item[column.field] ? 'Sim' : 'Não' }}</span>
+          <span *ngIf="column.dataType === 'date'">{{ item[column.field] }}</span>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</div>

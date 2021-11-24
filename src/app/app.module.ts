@@ -9,11 +9,24 @@ import { routing } from './app.routing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ButtonModule } from 'primeng/button';
+import { DynamicTableComponent } from './pages/components/dynamic-table/dynamic-table.component';
+
+import { PipeCurrency } from './pages/pipes/pipe-currency.pipe';
+import { PipeNumeber } from './pages/pipes/pipe-number.pipe ';
+import { PipeNumeberLiter } from './pages/pipes/pipe-number-liter.pipe ';
+import { PipeNumeberKilogram } from './pages/pipes/pipe-number-kilogram.pipe ';
+import { PipeNumeberUnity } from './pages/pipes/pipe-number-unity.pipe ';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    DynamicTableComponent,
+    PipeCurrency,
+    PipeNumeber,
+    PipeNumeberLiter,
+    PipeNumeberKilogram,
+    PipeNumeberUnity
   ],
   imports: [
     BrowserModule,
