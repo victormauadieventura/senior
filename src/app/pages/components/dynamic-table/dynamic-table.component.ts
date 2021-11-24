@@ -14,5 +14,4 @@ export class DynamicTableComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

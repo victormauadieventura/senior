@@ -1,17 +1,15 @@
 <div class="table">
-  <div class="table-header">
-    <ng-container *ngFor="let column of columns">
-      {{ column.header }}
-    </ng-container>
+  <div *ngFor="let column of columns" class="table-header" [ngStyle]="column.style">
+    {{ column.header }}
   </div>
   <div class="table-body">
     <ng-container *ngFor="let item of data">
       <div class="table-body-items">
         <ng-container *ngFor="let column of columns">
-          <span *ngIf="column.dataType === 'text'">{{ item[column.field] }}</span>
-          <span *ngIf="column.dataType === 'currency'">{{ item[column.field] | currency }}</span>
-          <span *ngIf="column.dataType === 'number'">{{ item[column.field] | number }}</span>
-          <span *ngIf="column.dataType === 'measurement'">
+          <div class="table-body-item" *ngIf="column.dataType === 'text'" [ngStyle]="column.style">{{ item[column.field] }}</div>
+          <div class="table-body-item" *ngIf="column.dataType === 'currency'" [ngStyle]="column.style">{{ item[column.field] | currency }}</div>
+          <div class="table-body-item" *ngIf="column.dataType === 'number'" [ngStyle]="column.style">{{ item[column.field] | number }}</div>
+          <div class="table-body-item" *ngIf="column.dataType === 'measurement'" [ngStyle]="column.style">
             <ng-container *ngIf="item.measurement === 'Litro'">
               {{ item[column.field] | numberLiter }}
             </ng-container>
@@ -21,9 +19,14 @@
             <ng-container *ngIf="item.measurement === 'Unidade'">
               {{ item[column.field] | numberUnity }}
             </ng-container>
-          </span>
-          <span *ngIf="column.dataType === 'boolean'">{{ item[column.field] ? 'Sim' : 'Não' }}</span>
-          <span *ngIf="column.dataType === 'date'">{{ item[column.field] }}</span>
+          </div>
+          <div class="table-body-item" *ngIf="column.dataType === 'boolean'" [ngStyle]="column.style">{{ item[column.field] ? 'Sim' : 'Não' }}</div>
+          <div class="table-body-item" *ngIf="column.dataType === 'date'" [ngStyle]="column.style">{{ item[column.field] | date }}</div>
+          <div class="table-body-buttom" *ngIf="column.dataType === 'buttom'" [ngStyle]="column.style">
+            <button pButton type="button" icon="pi pi-plus" class="p-button-sm"></button>
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-sm p-button-warning"></button>
+            <button pButton type="button" icon="pi pi-trash" class="p-button-sm p-button-danger"></button>
+          </div>
         </ng-container>
       </div>
     </ng-container>

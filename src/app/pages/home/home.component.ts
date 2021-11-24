@@ -14,41 +14,65 @@ export class HomeComponent implements OnInit {
       header: 'Nome do item',
       field: 'name',
       dataType: 'text',
+      style: {
+        width: '12%'
+      },
     },
     {
       header: 'Unidade de medida',
       field: 'measurement',
       dataType: 'text',
+      style: {
+        width: '15%'
+      },
     },
     {
       header: 'Quantidade',
       field: 'amount',
       dataType: 'measurement',
+      style: {
+        width: '10%'
+      },
     },
     {
       header: 'Preço',
       field: 'price',
       dataType: 'currency',
+      style: {
+        width: '10%'
+      },
     },
     {
       header: 'Produto perecível',
       field: 'perishable',
       dataType: 'boolean',
+      style: {
+        width: '14%'
+      },
     },
     {
       header: 'Data de validade',
       field: 'expirationDate',
       dataType: 'date',
+      style: {
+        width: '14%'
+      },
     },
     {
       header: 'Data de fabricação',
       field: 'manufacturingDate',
       dataType: 'date',
+      style: {
+        width: '14%'
+      },
     },
     {
-      header: '',
+      header: ' ',
       field: 'buttom',
       dataType: 'buttom',
+      style: {
+        width: '11%'
+      },
     }
   ];
 

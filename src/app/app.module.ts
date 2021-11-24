@@ -16,6 +16,7 @@ import { PipeNumeber } from './pages/pipes/pipe-number.pipe ';
 import { PipeNumeberLiter } from './pages/pipes/pipe-number-liter.pipe ';
 import { PipeNumeberKilogram } from './pages/pipes/pipe-number-kilogram.pipe ';
 import { PipeNumeberUnity } from './pages/pipes/pipe-number-unity.pipe ';
+import { PipeDate } from './pages/pipes/pipe-date.pipe ';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PipeNumeberUnity } from './pages/pipes/pipe-number-unity.pipe ';
     PipeNumeber,
     PipeNumeberLiter,
     PipeNumeberKilogram,
-    PipeNumeberUnity
+    PipeNumeberUnity,
+    PipeDate
   ],
   imports: [
     BrowserModule,
