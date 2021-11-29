@@ -22,11 +22,8 @@
       <small>Obrigatório</small>
     </div>
     <div class="p-field-checkbox">
-      <div class="p-field-checkbox-content">
-        <p-checkbox formControlName="perishable" id="perishable" [(ngModel)]="perishable" [binary]="true"></p-checkbox>
-        <label for="perishable">Produto perecível</label>
-      </div>
-      <small>Obrigatório</small>
+      <p-checkbox formControlName="perishable" id="perishable" [(ngModel)]="perishable" [binary]="true"></p-checkbox>
+      <label for="perishable">Produto perecível</label>
     </div>
     <div *ngIf="perishable" class="p-field">
       <label for="expirationDate">Data de validade</label>

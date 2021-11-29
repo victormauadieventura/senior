@@ -28,17 +28,11 @@ form {
   }
   .p-field-checkbox {
     margin-bottom: 16px;
-    .p-field-checkbox-content {
-      display: flex;
-      align-items: center;
-      font-size: 12px;
-      label {
-        padding-left: 8px;
-      }
-    }
-    small {
-      margin-top: 4px;
-      font-size: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    label {
+      padding-left: 8px;
     }
   }
 }
