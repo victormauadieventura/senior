@@ -1,1 +1,44 @@
 <app-menu-sidebar></app-menu-sidebar>
+<div class="container">
+  <h2>Adicionar novo item</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="p-field">
+      <label for="name">Nome do item</label>
+      <input formControlName="name" id="name" type="text" aria-describedby="name-help" pInputText class="p-inputtext-sm" />
+      <small>Obrigatório</small>
+    </div>
+    <div class="p-field">
+      <label for="measurement">Unidade de medida</label>
+      <p-dropdown formControlName="measurement" id="measurement" [options]="measurement" optionLabel="name" class="p-inputtext-sm"></p-dropdown>
+      <small>Obrigatório</small>
+    </div>
+    <div class="p-field">
+      <label for="amount">Quantidade</label>
+      <p-inputNumber formControlName="amount" id="amount" inputId="minmax" inputId="minmax" mode="decimal" (click)="measurementValidation()" [min]="0" [minFractionDigits]="unitValidation" class="p-inputtext-sm"></p-inputNumber>
+    </div>
+    <div class="p-field">
+      <label for="price">Preço</label>
+      <p-inputNumber formControlName="price" id="price" [minFractionDigits]="2" class="p-inputtext-sm"></p-inputNumber>
+      <small>Obrigatório</small>
+    </div>
+    <div class="p-field-checkbox">
+      <div class="p-field-checkbox-content">
+        <p-checkbox formControlName="perishable" id="perishable" [(ngModel)]="perishable" [binary]="true"></p-checkbox>
+        <label for="perishable">Produto perecível</label>
+      </div>
+      <small>Obrigatório</small>
+    </div>
+    <div *ngIf="perishable" class="p-field">
+      <label for="expirationDate">Data de validade</label>
+      <p-inputMask formControlName="expirationDate" id="expirationDate" mask="99/99/9999" class="p-inputtext-sm"></p-inputMask>
+      <small>Obrigatório</small>
+    </div>
+    <div class="p-field">
+      <label for="manufacturingDate">Data de fabricação</label>
+      <p-inputMask formControlName="manufacturingDate" id="manufacturingDate" mask="99/99/9999" class="p-inputtext-sm"></p-inputMask>
+      <small>Obrigatório</small>
+    </div>
+    <button pButton pRipple type="submit" label="Salvar" class="p-button-sm"></button>
+    <button pButton type="button" label="Cancelar" (click)="cancelOperation()" class="p-button-text p-button-secondary p-button-sm"></button>
+  </form>
+</div>

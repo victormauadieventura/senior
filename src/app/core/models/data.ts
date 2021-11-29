@@ -1,5 +1,5 @@
 export interface Data {
-  id?: number;
+  id?: number | string;
   name?: string;
   measurement?: string;
   amount?: number;
