@@ -26,6 +26,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -52,13 +54,15 @@ import { InputNumberModule } from 'primeng/inputnumber';
     CheckboxModule,
     InputMaskModule,
     InputNumberModule,
+    ConfirmDialogModule,
     routing,
   ],
   providers: [
     {
       provide: LOCALE_ID,
       useValue: 'pt-BR'
-    }
+    },
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

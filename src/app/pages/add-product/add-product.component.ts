@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Data } from 'src/app/core/models/data';
 import { Router } from "@angular/router"
-
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -23,11 +23,12 @@ export class AddProductComponent implements OnInit {
   checked: boolean = false;
   measurementSelect: any = null;
   perishable: boolean = false;
-  unitValidation: number = 0;
+  unitValidation: number = 2;
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private confirmationService: ConfirmationService
   ) {
     this.registrationForm = this.formBuilder.group({
       id: [this.creatingID(), Validators.required],
@@ -42,16 +43,17 @@ export class AddProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.measurementValidation();
   }
 
   creatingID(): number {
-    let id = Math.floor(Math.random() * (1000))
+    let id = Math.floor(Math.random() * (1000));
     return id
   }
 
   onSubmit(): void {
-    this.data = Object.assign(this.data, this.registrationForm.value)
-    this.addProduct(this.data)
+    this.data = Object.assign(this.data, this.registrationForm.value);
+    this.addProduct(this.data);
     console.log(this.registrationForm.value.measurement.name);
   }
 
@@ -60,11 +62,19 @@ export class AddProductComponent implements OnInit {
   }
 
   measurementValidation() {
-    console.log('ENTROU ' + this.registrationForm.value.measurement.name);
-
-    if (this.registrationForm.value.measurement.name !== 'Unidade') {
-      this.unitValidation = 2
+    if (this.registrationForm.value.measurement && this.registrationForm.value.measurement.name === 'Unidade') {
+      this.unitValidation = 0;
     }
+  }
+
+  cancelOperationConfirmation() {
+    this.confirmationService.confirm({
+      header: 'Cancelar operação',
+      message: 'Deseja sair da tela de "Adicionar novo item"? Você irá perder todos os seus dados',
+      accept: () => {
+        this.cancelOperation()
+      }
+    });
   }
 
   cancelOperation() {

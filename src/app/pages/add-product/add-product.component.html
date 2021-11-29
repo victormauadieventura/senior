@@ -39,6 +39,16 @@
       <small>Obrigatório</small>
     </div>
     <button pButton pRipple type="submit" label="Salvar" class="p-button-sm"></button>
-    <button pButton type="button" label="Cancelar" (click)="cancelOperation()" class="p-button-text p-button-secondary p-button-sm"></button>
+    <button pButton type="button" label="Cancelar" (click)="cancelOperationConfirmation()" class="p-button-text p-button-secondary p-button-sm"></button>
   </form>
 </div>
+
+<p-confirmDialog
+  header="Confirmation"
+  acceptLabel="Sair"
+  acceptIcon=""
+  acceptButtonStyleClass="p-button-sm"
+  rejectLabel="Cancelar"
+  rejectIcon=""
+  rejectButtonStyleClass="p-button-text p-button-secondary p-button-sm"
+></p-confirmDialog>

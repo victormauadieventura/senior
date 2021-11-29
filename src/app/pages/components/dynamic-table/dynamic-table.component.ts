@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -7,11 +8,23 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DynamicTableComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private confirmationService: ConfirmationService
+  ) { }
 
   @Input() data: any[] = [];
   @Input() columns: any[] = [];
 
   ngOnInit(): void {
+  }
+
+  deleteConfirmation() {
+    this.confirmationService.confirm({
+      header: 'Deletar',
+      message: 'Este item será deletado permanentemente, deseja continuar com a operação?',
+      accept: () => {
+        console.log('Deletou');
+      }
+    });
   }
 }

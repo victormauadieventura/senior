@@ -23,12 +23,22 @@
           <div class="table-body-item" *ngIf="column.dataType === 'boolean'" [ngStyle]="column.style">{{ item[column.field] ? 'Sim' : 'Não' }}</div>
           <div class="table-body-item" *ngIf="column.dataType === 'date'" [ngStyle]="column.style">{{ item[column.field] | date }}</div>
           <div class="table-body-buttom" *ngIf="column.dataType === 'buttom'" [ngStyle]="column.style">
-            <button pButton type="button" icon="pi pi-plus" class="p-button-sm"></button>
+            <button pButton type="button" [routerLink]="['/adicionar']" icon="pi pi-plus" class="p-button-sm"></button>
             <button pButton type="button" icon="pi pi-pencil" class="p-button-sm p-button-warning"></button>
-            <button pButton type="button" icon="pi pi-trash" class="p-button-sm p-button-danger"></button>
+            <button pButton type="button" (click)="deleteConfirmation()" icon="pi pi-trash" class="p-button-sm p-button-danger"></button>
           </div>
         </ng-container>
       </div>
     </ng-container>
   </div>
 </div>
+
+<p-confirmDialog
+  header="Confirmation"
+  acceptLabel="Deletar"
+  acceptIcon=""
+  acceptButtonStyleClass="p-button-danger p-button-sm"
+  rejectLabel="Cancelar"
+  rejectIcon=""
+  rejectButtonStyleClass="p-button-text p-button-secondary p-button-sm"
+></p-confirmDialog>
