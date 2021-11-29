@@ -1,5 +1,6 @@
 <app-menu-sidebar></app-menu-sidebar>
 <div class="container">
+  <h2>Adicionar novo item</h2>
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <div class="p-field">
       <label for="name">Nome do item</label>
@@ -13,7 +14,7 @@
     </div>
     <div class="p-field">
       <label for="amount">Quantidade</label>
-      <p-inputNumber formControlName="amount" id="amount" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" class="p-inputtext-sm"></p-inputNumber>
+      <p-inputNumber formControlName="amount" id="amount" inputId="minmax" inputId="minmax" mode="decimal" (click)="measurementValidation()" [min]="0" [minFractionDigits]="unitValidation" class="p-inputtext-sm"></p-inputNumber>
     </div>
     <div class="p-field">
       <label for="price">Preço</label>

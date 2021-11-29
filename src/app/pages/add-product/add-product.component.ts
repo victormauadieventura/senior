@@ -23,6 +23,7 @@ export class AddProductComponent implements OnInit {
   checked: boolean = false;
   measurementSelect: any = null;
   perishable: boolean = false;
+  unitValidation: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,6 +57,14 @@ export class AddProductComponent implements OnInit {
 
   addProduct(data: Data): void {
     localStorage.setItem('Data', JSON.stringify(data));
+  }
+
+  measurementValidation() {
+    console.log('ENTROU ' + this.registrationForm.value.measurement.name);
+
+    if (this.registrationForm.value.measurement.name !== 'Unidade') {
+      this.unitValidation = 2
+    }
   }
 
   cancelOperation() {
