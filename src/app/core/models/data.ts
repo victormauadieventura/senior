@@ -1,7 +1,10 @@
 export interface Data {
   id?: number | string;
   name?: string;
-  measurement?: string;
+  measurement?: {
+    name: string;
+    code: string;
+  };
   amount?: number;
   price?: number;
   perishable?: boolean;

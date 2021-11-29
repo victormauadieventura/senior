@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Data } from 'src/app/core/models/data';
-import { Router } from "@angular/router"
+import { ActivatedRoute, Router } from "@angular/router"
 import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-add-product',
@@ -12,7 +12,7 @@ export class AddProductComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  data: any = {};
+  data: Data = {};
 
   measurement: any = [
     { name: 'Litro', code: 'litro' },
@@ -20,6 +20,7 @@ export class AddProductComponent implements OnInit {
     { name: 'Unidade', code: 'unidade' }
   ];
 
+  productId: string = '';
   checked: boolean = false;
   measurementSelect: any = null;
   perishable: boolean = false;
@@ -28,21 +29,26 @@ export class AddProductComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private confirmationService: ConfirmationService
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService,
   ) {
     this.registrationForm = this.formBuilder.group({
-      id: [this.creatingID(), Validators.required],
-      name: [null, [Validators.required, Validators.maxLength(50)]],
-      measurement: [null, Validators.required],
-      amount: [null, Validators.required],
-      price: [null, Validators.required],
-      perishable: [null],
-      expirationDate: [null, Validators.required],
-      manufacturingDate: [null, Validators.required],
+      id: ['', Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      measurement: ['', Validators.required],
+      amount: ['', Validators.required],
+      price: ['', Validators.required],
+      perishable: [''],
+      expirationDate: ['', Validators.required],
+      manufacturingDate: ['', Validators.required],
     })
   }
 
   ngOnInit(): void {
+    this.productId = this.route.snapshot.params['id'];
+    if (this.productId) {
+      this.getProduct();
+    }
     this.measurementValidation();
   }
 
@@ -54,20 +60,36 @@ export class AddProductComponent implements OnInit {
   onSubmit(): void {
     this.data = Object.assign(this.data, this.registrationForm.value);
     this.addProduct(this.data);
-    console.log(this.registrationForm.value.measurement.name);
+    this.router.navigate(['/']);
   }
 
   addProduct(data: Data): void {
     localStorage.setItem('Data', JSON.stringify(data));
   }
 
-  measurementValidation() {
+  getProduct(): void {
+    let product: Data = JSON.parse(localStorage.getItem('Data') as string)
+
+    this.perishable = product.perishable as boolean;
+
+    this.registrationForm.patchValue({
+      name: product.name,
+      measurement: product.measurement,
+      amount: product.amount,
+      price: product.price,
+      perishable: product.perishable,
+      expirationDate: product.expirationDate,
+      manufacturingDate: product.manufacturingDate
+    });
+  }
+
+  measurementValidation(): void {
     if (this.registrationForm.value.measurement && this.registrationForm.value.measurement.name === 'Unidade') {
       this.unitValidation = 0;
     }
   }
 
-  cancelOperationConfirmation() {
+  cancelOperationConfirmation(): void {
     this.confirmationService.confirm({
       header: 'Cancelar operação',
       message: 'Deseja sair da tela de "Adicionar novo item"? Você irá perder todos os seus dados',
@@ -77,7 +99,7 @@ export class AddProductComponent implements OnInit {
     });
   }
 
-  cancelOperation() {
+  cancelOperation(): void {
     this.data = {};
     localStorage.clear();
     this.router.navigate(['/']);
