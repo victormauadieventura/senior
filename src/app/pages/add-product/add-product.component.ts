@@ -127,6 +127,8 @@ export class AddProductComponent implements OnInit {
   measurementValidation(): void {
     if (this.registrationForm.value.measurement && this.registrationForm.value.measurement.name === 'Unidade') {
       this.unitValidation = 0;
+    } else {
+      this.unitValidation = 3;
     }
   }
 
