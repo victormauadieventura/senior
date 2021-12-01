@@ -47,40 +47,90 @@ export class AddProductComponent implements OnInit {
   ngOnInit(): void {
     this.productId = this.route.snapshot.params['id'];
     if (this.productId) {
-      this.getProduct();
+      // this.editProduct(+this.productId);
     }
+
+    this.getProduct();
     this.measurementValidation();
   }
 
   creatingID(): number {
-    let id = Math.floor(Math.random() * (1000));
-    return id
+    const product = localStorage.getItem('Data')
+    if (product !== null) {
+      const dataList = JSON.parse(product)
+      return dataList.length + 1;
+    } else {
+      return 1
+    }
   }
 
   onSubmit(): void {
     this.data = Object.assign(this.data, this.registrationForm.value);
-    this.addProduct(this.data);
+
+    if (this.router.url === '/adicionar') {
+      this.addProduct(this.data);
+    }
+    if (this.router.url === `/editar/${this.productId}`) {
+      this.editProduct();
+    }
+
     this.router.navigate(['/']);
   }
 
   addProduct(data: Data): void {
-    localStorage.setItem('Data', JSON.stringify(data));
+    data.id = this.creatingID();
+    this.data.id = data.id;
+    const product = localStorage.getItem('Data');
+    if (product !== null) {
+      const dataList = JSON.parse(product);
+      dataList.push(this.data);
+      localStorage.setItem('Data', JSON.stringify(dataList));
+    } else {
+      const dataList = []
+      dataList.push(this.data);
+      localStorage.setItem('Data', JSON.stringify(dataList));
+    }
+  }
+
+  editProduct(): void {
+    const product = localStorage.getItem('Data');
+    if (product !== null) {
+      const dataList = JSON.parse(product);
+      dataList.splice(dataList.findIndex((data: Data) => data.id === +this.productId), 1);
+      dataList.push(this.data);
+      localStorage.setItem('Data', JSON.stringify(dataList));
+    }
+  }
+
+  public deleteProduct(id: any): void {
+    const product = localStorage.getItem('Data');
+    if (product !== null) {
+      const dataList = JSON.parse(product);
+      dataList.splice(dataList.findIndex((data: Data) => data.id === +id), 1);
+      localStorage.setItem('Data', JSON.stringify(dataList));
+    }
   }
 
   getProduct(): void {
-    let product: Data = JSON.parse(localStorage.getItem('Data') as string)
+    const data = localStorage.getItem('Data');
+    if (data !== null) {
+      const productList = JSON.parse(data);
 
-    this.perishable = product.perishable as boolean;
+      const currentProduct = productList.find((product: Data) => product.id === +this.productId);
 
-    this.registrationForm.patchValue({
-      name: product.name,
-      measurement: product.measurement,
-      amount: product.amount,
-      price: product.price,
-      perishable: product.perishable,
-      expirationDate: product.expirationDate,
-      manufacturingDate: product.manufacturingDate
-    });
+      if (currentProduct !== undefined) {
+        this.registrationForm.patchValue({
+          id: currentProduct.id,
+          name: currentProduct.name,
+          measurement: currentProduct.measurement,
+          amount: currentProduct.amount,
+          price: currentProduct.price,
+          perishable: currentProduct.perishable,
+          expirationDate: currentProduct.expirationDate,
+          manufacturingDate: currentProduct.manufacturingDate
+        });
+      }
+    }
   }
 
   measurementValidation(): void {

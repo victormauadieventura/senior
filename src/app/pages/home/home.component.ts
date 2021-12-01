@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Data } from '@angular/router';
 import { Columns } from 'src/app/core/models/columns';
+import { Data } from 'src/app/core/models/data';
 
 @Component({
   selector: 'app-home',
@@ -76,42 +76,41 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  data: Data[] = [
-    {
-      id: 1,
-      name: 'Celular',
-      measurement: 'Unidade',
-      amount: 1,
-      price: 2000.89,
-      perishable: false,
-      expirationDate: '2021-12-10',
-      manufacturingDate: '2021-11-10',
-    },
-    {
-      id: 2,
-      name: 'Carne',
-      measurement: 'Quilograma',
-      amount: 10.98787,
-      price: 2000.89,
-      perishable: true,
-      expirationDate: '2021-12-10',
-      manufacturingDate: '2021-11-10',
-    },
-    {
-      id: 3,
-      name: 'Leite',
-      measurement: 'Litro',
-      amount: 1.76543,
-      price: 2000.89,
-      perishable: true,
-      expirationDate: '2021-12-10',
-      manufacturingDate: '2021-11-10',
-    }
-  ];
+  data: Data[] = [];
+  dataListUpdated: any = [];
 
-  constructor() { }
+  constructor( ) { }
 
   ngOnInit(): void {
+    this.data = this.marshalData()
   }
 
+  deleteProduct(id: any): void {
+    const products = localStorage.getItem('Data');
+    if (products !== null) {
+      const dataList = JSON.parse(products);
+      dataList.splice(dataList.findIndex((data: Data) => data.id === +id), 1);
+      localStorage.setItem('Data', JSON.stringify(dataList));
+      this.data = dataList;
+    }
+  }
+
+  marshalData() {
+    let products = localStorage.getItem('Data');
+    if (products !== null) {
+      const dataList = JSON.parse(products);
+      console.log(dataList);
+      dataList.forEach((data: any) => {
+        data.id = data.id,
+        data.name = data.name,
+        data.measurement = data.measurement.name,
+        data.amount = data.amount,
+        data.price = data.price,
+        data.perishable = data.perishable,
+        data.expirationDate = new Date(data.expirationDate),
+        data.manufacturingDate = new Date(data.manufacturingDate)
+      });
+      return dataList;
+    }
+  }
 }
