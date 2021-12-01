@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { Data } from 'src/app/core/models/data';
@@ -18,6 +18,8 @@ export class DynamicTableComponent implements OnInit {
   @Input() data: any[] = [];
   @Input() columns: any[] = [];
 
+  @Output() deletedItem: EventEmitter<number> = new EventEmitter<number>();
+
   ngOnInit(): void {
   }
 
@@ -25,12 +27,12 @@ export class DynamicTableComponent implements OnInit {
     this.router.navigateByUrl(`/editar/${product.id}`);
   }
 
-  deleteConfirmation(): void {
+  deleteConfirmation(id: number): void {
     this.confirmationService.confirm({
       header: 'Deletar',
       message: 'Este item será deletado permanentemente, deseja continuar com a operação?',
       accept: () => {
-        console.log('Deletou');
+        this.deletedItem.emit(id);
       }
     });
   }

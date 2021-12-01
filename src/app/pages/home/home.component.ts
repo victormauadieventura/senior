@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Data } from '@angular/router';
 import { Columns } from 'src/app/core/models/columns';
+import { Data } from 'src/app/core/models/data';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     },
     {
       header: 'Unidade de medida',
-      field: 'measurement',
+      field: 'measurement.name',
       dataType: 'text',
       style: {
         width: '15%'
@@ -76,42 +76,40 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  data: Data[] = [
-    {
-      id: 1,
-      name: 'Celular',
-      measurement: 'Unidade',
-      amount: 1,
-      price: 2000.89,
-      perishable: false,
-      expirationDate: '2021-12-10',
-      manufacturingDate: '2021-11-10',
-    },
-    {
-      id: 2,
-      name: 'Carne',
-      measurement: 'Quilograma',
-      amount: 10.98787,
-      price: 2000.89,
-      perishable: true,
-      expirationDate: '2021-12-10',
-      manufacturingDate: '2021-11-10',
-    },
-    {
-      id: 3,
-      name: 'Leite',
-      measurement: 'Litro',
-      amount: 1.76543,
-      price: 2000.89,
-      perishable: true,
-      expirationDate: '2021-12-10',
-      manufacturingDate: '2021-11-10',
-    }
-  ];
+  data: Data[] = [];
+  dataListUpdated: any = [];
 
-  constructor() { }
+  constructor( ) { }
 
   ngOnInit(): void {
+    this.data = JSON.parse(localStorage.getItem('Data') as string)
   }
 
+  deleteProduct(id: any): void {
+    const product = localStorage.getItem('Data');
+    if (product !== null) {
+      const dataList = JSON.parse(product);
+      dataList.splice(dataList.findIndex((data: Data) => data.id === +id), 1);
+      localStorage.setItem('Data', JSON.stringify(dataList));
+      this.data = dataList;
+    }
+  }
+
+  // TODO
+  marshalData() {
+    let products = [JSON.parse(localStorage.getItem('Data') as string)];
+
+    products.forEach(product => {
+      product.id = product.id,
+      product.name = product.name,
+      product.measurement = product.measurement.name,
+      product.amount = product.amount,
+      product.price = product.price,
+      product.perishable = product.perishable,
+      product.expirationDate = new Date(product.expirationDate),
+      product.manufacturingDate = new Date(product.manufacturingDate)
+    });
+
+    return products
+  }
 }

@@ -6,7 +6,7 @@
     <ng-container *ngFor="let item of data">
       <div class="table-body-items">
         <ng-container *ngFor="let column of columns">
-          <div class="table-body-item" *ngIf="column.dataType === 'text'" [ngStyle]="column.style">{{ item[column.field] }}</div>
+          <div class="table-body-item truncate" *ngIf="column.dataType === 'text'" [ngStyle]="column.style">{{ item[column.field] }}</div>
           <div class="table-body-item" *ngIf="column.dataType === 'currency'" [ngStyle]="column.style">{{ item[column.field] | currency }}</div>
           <div class="table-body-item" *ngIf="column.dataType === 'number'" [ngStyle]="column.style">{{ item[column.field] | number }}</div>
           <div class="table-body-item" *ngIf="column.dataType === 'measurement'" [ngStyle]="column.style">
@@ -25,7 +25,7 @@
           <div class="table-body-buttom" *ngIf="column.dataType === 'buttom'" [ngStyle]="column.style">
             <button pButton type="button" [routerLink]="['/adicionar']" icon="pi pi-plus" class="p-button-sm"></button>
             <button pButton type="button" (click)="goToPrductEdition(item)" icon="pi pi-pencil" class="p-button-sm p-button-warning"></button>
-            <button pButton type="button" (click)="deleteConfirmation()" icon="pi pi-trash" class="p-button-sm p-button-danger"></button>
+            <button pButton type="button" (click)="deleteConfirmation(item.id)" icon="pi pi-trash" class="p-button-sm p-button-danger"></button>
           </div>
         </ng-container>
       </div>
