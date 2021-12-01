@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     },
     {
       header: 'Unidade de medida',
-      field: 'measurement.name',
+      field: 'measurement',
       dataType: 'text',
       style: {
         width: '15%'
@@ -82,34 +82,35 @@ export class HomeComponent implements OnInit {
   constructor( ) { }
 
   ngOnInit(): void {
-    this.data = JSON.parse(localStorage.getItem('Data') as string)
+    this.data = this.marshalData()
   }
 
   deleteProduct(id: any): void {
-    const product = localStorage.getItem('Data');
-    if (product !== null) {
-      const dataList = JSON.parse(product);
+    const products = localStorage.getItem('Data');
+    if (products !== null) {
+      const dataList = JSON.parse(products);
       dataList.splice(dataList.findIndex((data: Data) => data.id === +id), 1);
       localStorage.setItem('Data', JSON.stringify(dataList));
       this.data = dataList;
     }
   }
 
-  // TODO
   marshalData() {
-    let products = [JSON.parse(localStorage.getItem('Data') as string)];
-
-    products.forEach(product => {
-      product.id = product.id,
-      product.name = product.name,
-      product.measurement = product.measurement.name,
-      product.amount = product.amount,
-      product.price = product.price,
-      product.perishable = product.perishable,
-      product.expirationDate = new Date(product.expirationDate),
-      product.manufacturingDate = new Date(product.manufacturingDate)
-    });
-
-    return products
+    let products = localStorage.getItem('Data');
+    if (products !== null) {
+      const dataList = JSON.parse(products);
+      console.log(dataList);
+      dataList.forEach((data: any) => {
+        data.id = data.id,
+        data.name = data.name,
+        data.measurement = data.measurement.name,
+        data.amount = data.amount,
+        data.price = data.price,
+        data.perishable = data.perishable,
+        data.expirationDate = new Date(data.expirationDate),
+        data.manufacturingDate = new Date(data.manufacturingDate)
+      });
+      return dataList;
+    }
   }
 }
