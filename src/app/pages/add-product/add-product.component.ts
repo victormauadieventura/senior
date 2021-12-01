@@ -35,7 +35,7 @@ export class AddProductComponent implements OnInit {
     this.registrationForm = this.formBuilder.group({
       id: ['', Validators.required],
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      measurement: ['', Validators.required],
+      measurement: [this.measurementSelect, Validators.required],
       amount: ['', Validators.required],
       price: ['', Validators.required],
       perishable: [''],
@@ -46,10 +46,6 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productId = this.route.snapshot.params['id'];
-    if (this.productId) {
-      // this.editProduct(+this.productId);
-    }
-
     this.getProduct();
     this.measurementValidation();
   }
@@ -113,7 +109,7 @@ export class AddProductComponent implements OnInit {
         this.registrationForm.patchValue({
           id: currentProduct.id,
           name: currentProduct.name,
-          measurement: currentProduct.measurement,
+          measurement: currentProduct.measurement.name | currentProduct.measurement,
           amount: currentProduct.amount,
           price: currentProduct.price,
           perishable: currentProduct.perishable,
@@ -144,7 +140,6 @@ export class AddProductComponent implements OnInit {
 
   cancelOperation(): void {
     this.data = {};
-    localStorage.clear();
     this.router.navigate(['/']);
   }
 }

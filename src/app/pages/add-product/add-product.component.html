@@ -8,7 +8,7 @@
     </div>
     <div class="p-field">
       <label for="measurement">Unidade de medida</label>
-      <p-dropdown formControlName="measurement" id="measurement" [options]="measurement" optionLabel="name" class="p-inputtext-sm"></p-dropdown>
+      <p-dropdown formControlName="measurement" id="measurement" [options]="measurement" [(ngModel)]="measurementSelect" optionLabel="name" class="p-inputtext-sm"></p-dropdown>
       <small>Obrigatório</small>
     </div>
     <div class="p-field">

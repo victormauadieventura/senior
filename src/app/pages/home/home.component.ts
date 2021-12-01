@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit {
       const dataList = JSON.parse(products);
       dataList.splice(dataList.findIndex((data: Data) => data.id === +id), 1);
       localStorage.setItem('Data', JSON.stringify(dataList));
-      this.data = dataList;
+      this.data = this.marshalData();
     }
   }
 
@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit {
       dataList.forEach((data: any) => {
         data.id = data.id,
         data.name = data.name,
-        data.measurement = data.measurement.name,
+        data.measurement = data.measurement.name ? data.measurement.name : data.measurement,
         data.amount = data.amount,
         data.price = data.price,
         data.perishable = data.perishable,
