@@ -1,0 +1,14 @@
+<div id="menu-sidebar">
+  <div class="menu-sidebar-brand">
+    <img [src]="brand.url" [alt]="brand.text" [style]="brand.style">
+  </div>
+  <div class="menu-sidebar-list">
+    <ul>
+      <li *ngFor="let item of items">
+        <a [routerLink]="[item.url]" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <i class="pi" [class]="item.icon"></i><span *ngIf="!menuSidebarOpen">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
