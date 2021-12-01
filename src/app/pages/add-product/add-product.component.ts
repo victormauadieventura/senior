@@ -24,7 +24,7 @@ export class AddProductComponent implements OnInit {
   checked: boolean = false;
   measurementSelect: any = null;
   perishable: boolean = false;
-  unitValidation: number = 2;
+  unitValidation: number = 3;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -98,15 +98,6 @@ export class AddProductComponent implements OnInit {
       const dataList = JSON.parse(product);
       dataList.splice(dataList.findIndex((data: Data) => data.id === +this.productId), 1);
       dataList.push(this.data);
-      localStorage.setItem('Data', JSON.stringify(dataList));
-    }
-  }
-
-  public deleteProduct(id: any): void {
-    const product = localStorage.getItem('Data');
-    if (product !== null) {
-      const dataList = JSON.parse(product);
-      dataList.splice(dataList.findIndex((data: Data) => data.id === +id), 1);
       localStorage.setItem('Data', JSON.stringify(dataList));
     }
   }

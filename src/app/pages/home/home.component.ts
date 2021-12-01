@@ -99,7 +99,6 @@ export class HomeComponent implements OnInit {
     let products = localStorage.getItem('Data');
     if (products !== null) {
       const dataList = JSON.parse(products);
-      console.log(dataList);
       dataList.forEach((data: any) => {
         data.id = data.id,
         data.name = data.name,
